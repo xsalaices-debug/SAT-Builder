@@ -45,34 +45,6 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
   --shadow-md: 0 2px 8px rgba(0,0,0,.3);
 }
 
-/* ── Bluebook ── */
-[data-theme="bluebook"] {
-  --c-bg: #eef4fb; --c-surface: #ffffff; --c-surface2: #f4f8fc;
-  --c-offset: #e8f4fd; --c-border: #b8d4eb; --c-border2: #92bcd9; --c-divider: #cfe2f3;
-  --c-text: #111827; --c-muted: #374151; --c-faint: #6b7280; --c-inv: #ffffff;
-  --c-pri: #0077c8; --c-pri-h: #006ab5; --c-pri-a: #005a99; --c-pri-s: #dceefa;
-  --c-ok: #2e8540; --c-ok-bg: #e6f4ea; --c-ok-b: #a8d5b1;
-  --c-warn: #e87722; --c-warn-bg: #fff3e0; --c-warn-b: #ffcc80;
-  --c-err: #d32f2f; --c-err-bg: #ffebee; --c-err-b: #ef9a9a;
-  --shadow-sm: 0 1px 2px rgba(0,0,80,.05);
-  --shadow-md: 0 2px 8px rgba(0,0,80,.09), 0 1px 2px rgba(0,0,80,.05);
-}
-[data-theme="bluebook"] .site-header {
-  background: #003057; border-bottom-color: #001f3a;
-}
-[data-theme="bluebook"] .logo-text,
-[data-theme="bluebook"] .logo-sub,
-[data-theme="bluebook"] .logo-icon { color: #ffffff; }
-[data-theme="bluebook"] .logo-sub { color: rgba(255,255,255,0.65); }
-[data-theme="bluebook"] .theme-toggle {
-  border-color: rgba(255,255,255,0.3); color: rgba(255,255,255,0.85); background: none;
-}
-[data-theme="bluebook"] .theme-toggle:hover {
-  background: rgba(255,255,255,0.12); color: #ffffff; border-color: rgba(255,255,255,0.5);
-}
-[data-theme="bluebook"] .desmos-btn { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.3); }
-[data-theme="bluebook"] .desmos-btn:hover { background: rgba(255,255,255,0.12); color: #ffffff; }
-
 body {
   min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base);
   line-height: 1.6; color: var(--c-text); background: var(--c-bg);

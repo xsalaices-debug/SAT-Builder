@@ -86,17 +86,16 @@
   const sunSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
   const moonSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
   const bluebookSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>';
-  const themeOrder = ['light', 'dark', 'bluebook'];
+  const themeOrder = ['light', 'dark'];
   function setTheme(t) {
     theme = t;
     root.setAttribute('data-theme', t);
-    themeBtn.title = t === 'light' ? 'Switch to dark mode' : t === 'dark' ? 'Switch to Bluebook aesthetic' : 'Switch to light mode';
-    themeBtn.innerHTML = t === 'dark' ? sunSvg : t === 'bluebook' ? bluebookSvg : moonSvg;
+    themeBtn.title = t === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+    themeBtn.innerHTML = t === 'dark' ? sunSvg : moonSvg;
   }
   setTheme(theme);
   themeBtn.addEventListener('click', () => {
-    const next = themeOrder[(themeOrder.indexOf(theme) + 1) % themeOrder.length];
-    setTheme(next);
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   });
 
   // ── Tabs ──
