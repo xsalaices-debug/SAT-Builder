@@ -360,7 +360,8 @@
         ${q.desmos_solvable ? `<span class="desmos-badge" title="${q.desmos_category}">📐 ${q.desmos_category || 'Desmos'}</span>` : ''}
       </div></div>
       <div class="card-body">
-        <div class="question-topic">#${num} · ${q.id}</div>
+        <div class="question-topic">#${num} · ${q.id}${q.source ? ` · <em>${q.source}</em>` : ''}</div>
+        ${q.passage ? `<div class="question-passage">${q.passage}</div>` : ''}
         <div class="question-stem">${cleanText(q.stem)}</div>
         <ul class="choices-list"></ul>
         <div class="answer-section">
