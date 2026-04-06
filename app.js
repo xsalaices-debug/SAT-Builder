@@ -90,13 +90,12 @@
   function setTheme(t) {
     theme = t;
     root.setAttribute('data-theme', t);
-    themeBtn.title = t === 'light' ? 'Switch to dark mode' : t === 'dark' ? 'Switch to Bluebook mode' : 'Switch to light mode';
+    themeBtn.title = t === 'light' ? 'Switch to dark mode' : t === 'dark' ? 'Switch to Bluebook aesthetic' : 'Switch to light mode';
     themeBtn.innerHTML = t === 'dark' ? sunSvg : t === 'bluebook' ? bluebookSvg : moonSvg;
   }
   setTheme(theme);
   themeBtn.addEventListener('click', () => {
     const next = themeOrder[(themeOrder.indexOf(theme) + 1) % themeOrder.length];
-    if (next === 'bluebook') { window.location.href = 'bluebook.html'; return; }
     setTheme(next);
   });
 
