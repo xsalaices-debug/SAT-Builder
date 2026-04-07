@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAT Hard Question Builder</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=jetbrains-mono@400,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23006494'/><text x='16' y='22' font-family='system-ui' font-weight='700' font-size='16' fill='white' text-anchor='middle'>S</text></svg>">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-group">
+        <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-label="SAT Hard Question Builder">
+          <rect width="32" height="32" rx="6" fill="var(--color-primary)"/>
+          <path d="M8 22V18l4-4 4 4 8-8v4l-8 8-4-4-4 4z" fill="var(--color-text-inverse)" opacity="0.9"/>
+          <circle cx="24" cy="10" r="2.5" fill="var(--color-text-inverse)"/>
+        </svg>
+        <div>
+          <h1 class="logo-text">SAT Hard Question Builder</h1>
+          <p class="logo-sub">Score Band 7 Practice Generator</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-desmos" class="desmos-btn" aria-label="Open Desmos Calculator" title="Open Desmos Calculator">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="3"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/><circle cx="16" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <button class="theme-toggle" data-theme-toggle aria-label="Switch mode" title="Switch mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="disclaimer-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>This is an independent practice tool. Not affiliated with, endorsed by, or calibrated to the College Board or official SAT scoring.</span>
+    </div>
+
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="generator">Question Generator</button>
+      <button class="tab-btn" data-tab="bank">Question Bank <span class="tab-count" id="bank-tab-count">2,474</span></button>
+    </nav>
+
+    <!-- Generator Tab -->
+    <div id="tab-generator" class="tab-panel active">
+      <section class="controls-panel">
+        <div class="controls-grid">
+          <div class="control-group">
+            <label class="control-label" for="topic-select">Topic</label>
+            <select id="topic-select" class="control-input">
+              <optgroup label="Reading &amp; Writing">
+                <option value="Information and Ideas / Inference">Information and Ideas / Inference</option>
+                <option value="Craft and Structure / Words in Context">Craft and Structure / Words in Context</option>
+                <option value="Craft and Structure / Text Structure and Purpose">Craft and Structure / Text Structure and Purpose</option>
+                <option value="Expression of Ideas / Transitions">Expression of Ideas / Transitions</option>
+                <option value="Standard English Conventions / Boundaries">Standard English Conventions / Boundaries</option>
+              </optgroup>
+              <optgroup label="Math">
+                <option value="Algebra / Systems and Linear Models">Algebra / Systems and Linear Models</option>
+                <option value="Advanced Math / Quadratic Conditions">Advanced Math / Quadratic Conditions</option>
+                <option value="Problem-Solving and Data Analysis / Percentages and Rates">Problem-Solving / Percentages and Rates</option>
+                <option value="Geometry and Trigonometry / Similarity and Right Triangles">Geometry / Similarity and Right Triangles</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="control-row">
+            <div class="control-group">
+              <label class="control-label" for="num-questions">Questions</label>
+              <select id="num-questions" class="control-input">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="stress-rounds">Audit Rounds</label>
+              <select id="stress-rounds" class="control-input">
+                <option value="3" selected>3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+          <div class="control-group control-group-wide">
+            <label class="control-label" for="seed-input">Seed Question or Pattern <span class="optional-tag">optional</span></label>
+            <textarea id="seed-input" class="control-input control-textarea" rows="2" placeholder="Paste an example SAT question to generate similar ones in the same style..."></textarea>
+          </div>
+        </div>
+        <div class="controls-actions">
+          <button id="btn-generate" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            Generate &amp; Stress-Test
+          </button>
+          <button id="btn-build-all" class="btn btn-secondary">Build All Topics</button>
+          <button id="btn-clear" class="btn btn-ghost">Clear</button>
+        </div>
+      </section>
+
+      <div id="progress-section" class="progress-section hidden">
+        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <p id="progress-text" class="progress-text">Generating...</p>
+      </div>
+
+      <div id="results-container" class="results-container"></div>
+    </div>
+
+    <!-- Question Bank Tab -->
+    <div id="tab-bank" class="tab-panel">
+      <section class="controls-panel">
+        <div class="controls-grid">
+          <div class="control-group">
+            <label class="control-label" for="bank-section">Section</label>
+            <select id="bank-section" class="control-input">
+              <option value="all">All Sections</option>
+              <option value="Reading and Writing">Reading &amp; Writing</option>
+              <option value="Math">Math</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="bank-difficulty">Difficulty</label>
+            <select id="bank-difficulty" class="control-input">
+              <option value="all">All Difficulties</option>
+              <option value="Hard">Hard</option>
+              <option value="Medium">Medium</option>
+              <option value="Easy">Easy</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="bank-domain">Domain</label>
+            <select id="bank-domain" class="control-input">
+              <option value="all">All Domains</option>
+            </select>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="bank-search">Search</label>
+            <input id="bank-search" class="control-input" type="text" placeholder="Search question text...">
+          </div>
+        </div>
+        <div class="desmos-filter">
+          <div class="seg-group" id="bank-desmos-seg">
+            <button class="seg-btn active" data-val="all">All</button>
+            <button class="seg-btn" data-val="desmos">Desmos</button>
+            <button class="seg-btn" data-val="no-desmos">Non-Desmos</button>
+          </div>
+        </div>
+        <div class="bank-stats">
+          <span id="bank-count">2,474 questions</span>
+          <span class="bank-source">Source: <a href="https://github.com/Anas099X/OpenSAT" target="_blank" rel="noopener">OpenSAT</a> (CC, free &amp; open-source)</span>
+        </div>
+      </section>
+
+      <div id="bank-results" class="results-container"></div>
+      <div class="bank-pagination">
+        <button id="bank-prev" class="btn btn-secondary" disabled>Previous</button>
+        <span id="bank-page-info" class="bank-page-info">Page 1</span>
+        <button id="bank-next" class="btn btn-secondary">Next</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>SAT Hard Question Builder &mdash; Practice tool for personal study. Not an official College Board product.</p>
+  </footer>
+
+  <!-- Desmos Side Panel -->
+  <aside id="desmos-side-panel" class="desmos-side-panel">
+    <div class="desmos-side-header">
+      <span class="desmos-side-title">Desmos Calculator</span>
+      <div class="desmos-side-actions">
+        <button id="desmos-dock" class="desmos-side-btn" title="Move to left" aria-label="Switch dock side">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+        </button>
+        <button id="desmos-close" class="desmos-side-btn" title="Close" aria-label="Close Desmos">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="desmos-container" class="desmos-side-body"></div>
+  </aside>
+
+  <script src="app.js"></script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
