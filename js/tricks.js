@@ -89,6 +89,16 @@ const STRATEGIES = [
 
 const SPEED_ICONS = { high: '⚡⚡⚡', medium: '⚡⚡', low: '⚡' };
 
+/** Wrap each line of Desmos syntax in $...$ for KaTeX rendering */
+function syntaxMathPreview(syntax) {
+  return syntax
+    .split('\\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .map(line => `$${line}$`)
+    .join('<br>');
+}
+
 export function renderTricks(container) {
   let activeFilter = 'all';
 
@@ -120,8 +130,9 @@ export function renderTricks(container) {
         </div>
         <div class="trick-when"><strong>When:</strong> ${s.when}</div>
         <div class="trick-syntax">
-          <div class="trick-syntax-label">Desmos Input</div>
+          <div class="trick-syntax-label">Desmos Input <span class="trick-syntax-hint">(type this exactly)</span></div>
           <code class="trick-syntax-code">${s.syntax.replace(/\\n/g, '\n')}</code>
+          <div class="trick-syntax-preview">${syntaxMathPreview(s.syntax)}</div>
         </div>
         <div class="trick-example">${s.example}</div>
         <div class="trick-tip"><strong>Tip:</strong> ${s.tip}</div>
