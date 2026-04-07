@@ -170,7 +170,7 @@ function renderBankCard(q, num) {
         <button class="btn btn-primary check-btn" style="display:none">Check Answer</button>
         <div class="explanation-box" style="display:none">
           <div class="explanation-label">Explanation</div>
-          <div class="explanation-text">${q.explanation || 'No explanation available.'}</div>
+          <div class="explanation-text">${cleanText(q.explanation) || 'No explanation available.'}</div>
         </div>
       </div>
       ${q.desmos_solvable && q.desmos ? `

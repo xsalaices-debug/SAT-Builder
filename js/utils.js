@@ -21,6 +21,11 @@ export function renderMath(el) {
 /** Convert markdown bold/italic to HTML, strip artifacts */
 export function cleanText(s) {
   if (!s) return s;
+  // Fix LaTeX escape sequences that appear in plain text (outside math delimiters)
+  // and would either show raw backslashes or confuse KaTeX's auto-render.
+  s = s.replace(/\\\$/g, '&#36;');       // \$20 → $20 (literal $, not a math delimiter)
+  s = s.replace(/\\\%/g, '%');            // 15\% → 15% (literal %)
+  s = s.replace(/\$(?=[\d.])/g, '&#36;'); // bare $20 → $20 (currency, not math)
   s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*(.+?)\*/g, '<em>$1</em>');
   return s;
